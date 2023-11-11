@@ -23,13 +23,9 @@ function calculateResult(input: string): string {
    let current = initialValue;
    let result = '';
    for (const c of input) {
-      const [cu, r] = operators[c](current, result);
-      current = cu;
-      result = r;
+      [current, result] = operators[c](current, result);
    }
    return result;
 }
 
-console.log(calculateResult(inputs[0]));
-console.log(calculateResult(inputs[1]));
-console.log(calculateResult(inputs[2]));
+inputs.forEach(input => console.log(calculateResult(input)));
