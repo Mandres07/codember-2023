@@ -1,2 +1,2 @@
-# codember-challenge-01
-Solution of the cod ember challenge #01
+# Solutions of the codember challenges 
+# AdventJS Solutions
