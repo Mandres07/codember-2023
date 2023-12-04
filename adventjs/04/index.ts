@@ -7,33 +7,30 @@
 // However, bear in mind that there may be nested parentheses, 
 // so you should reverse the characters in the correct order.
 
-function removeParenthesis(message: string): string {
-    return message.split('').filter(c => c !== '(' && c !== ')').join('');
-}
-
-function decodeString(message: string): string {
-    let start: number | null = null;
-    let end: number | null = null;
-    for (let i = 0; i < message.length; i++) {
-        if (message[i] === '(')
-            start = i;
-        else if (message[i] === ')')
-            end = i;
-
-        if (start !== null && end !== null)
-            break;
-    }
-    if (start !== null && end !== null) {
-        const toReplace = message.substring(start, end + 1);
-        const newValue = removeParenthesis(toReplace.split('').reverse().join(''));
-        const newMessage = message.replace(toReplace, newValue);
-        return newMessage;
-    }
-    return message;
-}
-
 function decode(message: string): string {
-    // Code here
+    const removeParenthesis = (msg: string): string => {
+        return msg.replace('(', '').replace(')', '');
+    }
+
+    const decodeString = (msg: string): string => {
+        let start: number | null = null;
+        let end: number | null = null;
+        for (let i = 0; i < msg.length; i++) {
+            if (msg[i] === '(')
+                start = i;
+            else if (msg[i] === ')')
+                end = i;
+
+            if (start !== null && end !== null) {
+                const toReplace = msg.substring(start, end + 1);
+                const newValue = toReplace.split('').reverse().join('');
+                const newMessage = msg.replace(toReplace, removeParenthesis(newValue));
+                return newMessage;
+            }
+        }
+        return msg;
+    }
+
     while (message.includes('(')) {
         message = decodeString(message);
     }
@@ -49,5 +46,5 @@ console.log(b) // hello world!
 const c = decode('sa(u(cla)atn)s')
 console.log(c) // santaclaus
 
-const re = decodeString('(oiraM)');
+const re = decode('(oiraM)');
 console.log(re);
