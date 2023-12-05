@@ -1,37 +1,21 @@
 function cyberReindeer(road, time) {
-    const ROAD = '.', OPEN = '*', CLOSED = '|', SANTA = 'S';
-    const getPrevious = (index) => {
-        switch (road[index - 1]) {
-            case SANTA:
-            case ROAD:
-                return ROAD;
-            case OPEN:
-            case CLOSED:
-                return OPEN;
-            default:
-                return ROAD;
-        }
-    };
+    const ROAD = '.', OPEN = '*', CLOSED = '|', SANTA = 'S', STEPS_TO_OPEN = 4;
     const result = [road];
     let currentRoad = road.split('');
     let actualIndex = 1;
+    const getPrevious = (index) => {
+        if ([SANTA, ROAD].includes(road[index - 1]))
+            return ROAD;
+        return OPEN;
+    };
     for (let i = 1; i < time; i++) {
-        switch (road[actualIndex]) {
-            case ROAD:
-            case OPEN:
-                currentRoad[actualIndex] = SANTA;
-                if (road[actualIndex - 1] !== undefined) {
-                    currentRoad[actualIndex - 1] = getPrevious(actualIndex);
-                }
-                actualIndex++;
-                break;
-            case CLOSED:
-                break;
-            default:
-                break;
+        if ([ROAD, OPEN].includes(road[actualIndex])) {
+            currentRoad[actualIndex] = SANTA;
+            currentRoad[actualIndex - 1] = getPrevious(actualIndex);
+            actualIndex++;
         }
         result.push(currentRoad.join(''));
-        if (i === 4 && road.includes(CLOSED)) {
+        if (i === STEPS_TO_OPEN) {
             road = road.replaceAll(CLOSED, OPEN);
             currentRoad = currentRoad.map(r => r === CLOSED ? OPEN : r);
         }
