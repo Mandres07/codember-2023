@@ -6,31 +6,19 @@
 // However, bear in mind that there may be nested parentheses, 
 // so you should reverse the characters in the correct order.
 function decode(message) {
-    const removeParenthesis = (msg) => {
-        return msg.replace('(', '').replace(')', '');
-    };
-    const decodeString = (msg) => {
-        let start = null;
-        let end = null;
-        for (let i = 0; i < msg.length; i++) {
-            if (msg[i] === '(')
-                start = i;
-            else if (msg[i] === ')')
-                end = i;
-            if (start !== null && end !== null) {
-                const toReplace = msg.substring(start, end + 1);
-                const newValue = toReplace.split('').reverse().join('');
-                const newValueF = removeParenthesis(newValue);
-                const newMessage = msg.replace(toReplace, newValueF);
-                return newMessage;
-            }
+    let stack = [];
+    let result = '';
+    for (let char of message) {
+        if (char === '(') {
+            stack.push(result);
+            result = '';
         }
-        return msg;
-    };
-    while (message.includes('(')) {
-        message = decodeString(message);
+        else if (char === ')')
+            result = stack.pop() + result.split('').reverse().join('');
+        else
+            result += char;
     }
-    return message;
+    return result;
 }
 const a = decode('hola (odnum)');
 console.log(a); // hola mundo

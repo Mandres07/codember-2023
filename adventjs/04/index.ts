@@ -8,33 +8,21 @@
 // so you should reverse the characters in the correct order.
 
 function decode(message: string): string {
-    const removeParenthesis = (msg: string): string => {
-        return msg.replace('(', '').replace(')', '');
-    }
-
-    const decodeString = (msg: string): string => {
-        let start: number | null = null;
-        let end: number | null = null;
-        for (let i = 0; i < msg.length; i++) {
-            if (msg[i] === '(')
-                start = i;
-            else if (msg[i] === ')')
-                end = i;
-
-            if (start !== null && end !== null) {
-                const toReplace = msg.substring(start, end + 1);
-                const newValue = toReplace.split('').reverse().join('');
-                const newMessage = msg.replace(toReplace, removeParenthesis(newValue));
-                return newMessage;
-            }
+    let stack: string[] = [];
+    let result = '';
+    for (let char of message) {
+        if (char === '(') {
+            stack.push(result);
+            result = '';
         }
-        return msg;
+        else if (char === ')'){
+            const temp = result.split('').reverse();
+            result = stack.pop() + temp.join('');
+        }
+        else
+            result += char;
     }
-
-    while (message.includes('(')) {
-        message = decodeString(message);
-    }
-    return message;
+    return result;
 }
 
 const a = decode('hola (odnum)')
