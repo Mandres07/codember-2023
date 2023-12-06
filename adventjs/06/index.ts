@@ -16,8 +16,8 @@ function maxDistance(movements: string): number {
 }
 
 const movements = '>>*<'
-const result = maxDistance(movements)
-console.log(result) // -> 2
+const result1 = maxDistance(movements)
+console.log(result1) // -> 2
 
 const movements2 = '<<<>'
 const result2 = maxDistance(movements2)
