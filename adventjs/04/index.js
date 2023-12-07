@@ -13,8 +13,10 @@ function decode(message) {
             stack.push(result);
             result = '';
         }
-        else if (char === ')')
-            result = stack.pop() + result.split('').reverse().join('');
+        else if (char === ')') {
+            const temp = result.split('').reverse();
+            result = stack.pop() + temp.join('');
+        }
         else
             result += char;
     }
@@ -28,3 +30,4 @@ const c = decode('sa(u(cla)atn)s');
 console.log(c); // santaclaus
 const re = decode('(oiraM)');
 console.log(re);
+//# sourceMappingURL=index.js.map

@@ -34,3 +34,4 @@ console.log(findNaughtyStep(original1, modified1)); // 'f'
 const original2 = 'abcde';
 const modified2 = 'abcde';
 console.log(findNaughtyStep(original2, modified2)); // ''
+//# sourceMappingURL=index.js.map

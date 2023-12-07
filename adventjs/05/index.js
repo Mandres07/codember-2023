@@ -1,6 +1,7 @@
 function cyberReindeer(road, time) {
     const result = [];
-    let path = road.replace('S', '.').split('');
+    const realRoad = road.replace('S', '.');
+    let path = realRoad.split('');
     let position = 0;
     for (let i = 0; i < time; i++) {
         let moment = [...path];
@@ -14,7 +15,7 @@ function cyberReindeer(road, time) {
             result.push(moment.join(''));
         }
         if (i === 4)
-            path = path.map(p => p === '|' ? '*' : p);
+            path = realRoad.replaceAll('|', '*').split('');
     }
     return result;
 }
@@ -36,3 +37,4 @@ console.log(res);
   '...*...S..', // passes through the open barrier
 ]
 */ 
+//# sourceMappingURL=index.js.map

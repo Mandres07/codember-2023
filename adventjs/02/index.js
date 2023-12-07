@@ -13,3 +13,4 @@ console.log(manufacture(gifts2, materials2)); // ["puzzle"]
 const gifts = ['book', 'ps5'];
 const materials = 'psli';
 console.log(manufacture(gifts, materials)); // []
+//# sourceMappingURL=index.js.map
