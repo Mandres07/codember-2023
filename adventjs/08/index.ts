@@ -2,8 +2,9 @@ function organizeGifts(gifts: string): string {
    const array = gifts.match(/[0-9]+[a-z]/g);
    let result = '';
    for (const giftString of array) {
-      const quantity = +giftString.substring(0, giftString.length - 1);
-      const gift = giftString.substring(giftString.length - 1);
+      const size = giftString.length;
+      const quantity = +giftString.substring(0, size - 1);
+      const gift = giftString.substring(size - 1);
       let pallets = 0, bags = 0;
       let boxes = Math.floor(quantity / 10);
       bags = quantity % 10;
