@@ -1,5 +1,4 @@
 function adjustLights(lights: string[]) {
-   let result = 0;
    const even = lights[0];
    const odd = even === '🟢' ? '🔴' : '🟢';
 
@@ -13,21 +12,6 @@ function adjustLights(lights: string[]) {
       return (isEven && light !== odd) || (!isEven && light !== even);
    });
 
-   // for (let i = 0; i < lights.length; i++) {
-   //    const isEven = i % 2 === 0;
-   //    if (isEven && lights[i] !== even)
-   //       result++;
-   //    else if (!isEven && lights[i] !== odd)
-   //       result++;
-   // }
-   // let result2 = 0;
-   // for (let i = 0; i < lights.length; i++) {
-   //    const isEven = i % 2 === 0;
-   //    if (isEven && lights[i] !== odd)
-   //       result2++;
-   //    else if (!isEven && lights[i] !== even)
-   //       result2++;
-   // }
    return Math.min(result1.length, result2.length);
 }
 
