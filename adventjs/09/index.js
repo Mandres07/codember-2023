@@ -1,31 +1,14 @@
 function adjustLights(lights) {
-    let result = 0;
-    const even = lights[0];
-    const odd = even === '🟢' ? '🔴' : '🟢';
-    const result1 = lights.filter((light, index) => {
-        const isEven = index % 2 === 0;
-        return (isEven && light !== even) || (!isEven && light !== odd);
-    });
-    const result2 = lights.filter((light, index) => {
-        const isEven = index % 2 === 0;
-        return (isEven && light !== odd) || (!isEven && light !== even);
-    });
-    // for (let i = 0; i < lights.length; i++) {
-    //    const isEven = i % 2 === 0;
-    //    if (isEven && lights[i] !== even)
-    //       result++;
-    //    else if (!isEven && lights[i] !== odd)
-    //       result++;
-    // }
-    // let result2 = 0;
-    // for (let i = 0; i < lights.length; i++) {
-    //    const isEven = i % 2 === 0;
-    //    if (isEven && lights[i] !== odd)
-    //       result2++;
-    //    else if (!isEven && lights[i] !== even)
-    //       result2++;
-    // }
-    return Math.min(result1.length, result2.length);
+    const lenght = Math.round(lights.length / 2);
+    const array1 = new Array(lenght).fill(['🟢', '🔴']).flat();
+    let result1 = 0, result2 = 0;
+    for (let i = 0; i < lights.length; i++) {
+        if (lights[i] !== array1[i])
+            result1++;
+        if (lights[i] === array1[i])
+            result2++;
+    }
+    return Math.min(result1, result2);
 }
 console.log(adjustLights(['🟢', '🔴', '🟢', '🟢', '🟢']));
 // -> 1 (you change the fourth light to 🔴)
