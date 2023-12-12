@@ -1,0 +1,37 @@
+function checkIsValidCopy(original: string, copy: string) {
+    if (original.length !== copy.length){
+        return false;
+    }
+
+    const valids = ['#', '+', ':', '.', ' '];
+
+    for (let i = 0; i < original.length; i++) {
+        const isLetter = original[i].match(/[A-z]/i) !== null;
+        let diff = original[i] !== copy[i];
+        if (!isLetter && original[i] !== copy[i]) {
+            return false;
+        } else {
+            const isUpper = original[i] === original[i].toUpperCase();
+            const invalid = !valids.includes(copy[i]);
+            if (isUpper) {
+                diff = original[i].toLowerCase() !== copy[i].toLowerCase();
+            }
+            if (invalid && diff) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+console.log(checkIsValidCopy(
+    'Santa Claus is coming',
+    'sa#ta cl#us is comin#'
+)); // true
+console.log(checkIsValidCopy(
+    'Santa Claus is coming',
+    'p#nt: cla#s #s c+min#'
+)); // false (for the initial p)
+console.log(checkIsValidCopy('Santa Claus', 's#+:. c:. s')); // true
+console.log(checkIsValidCopy('Santa Claus', 's#+:.#c:. s')); // false (there is a # where it should not be)
+console.log(checkIsValidCopy('Santa Claus', 'SantA ClauS')); //false
