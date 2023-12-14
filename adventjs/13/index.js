@@ -3,26 +3,20 @@ function calculateTime(deliveries) {
     const limitDate = new Date();
     currentDate.setHours(0, 0, 0);
     limitDate.setHours(7, 0, 0);
+    let hoursToAdd = 0, minutesToAdd = 0, secondsToAdd = 0;
     deliveries.forEach(delivery => {
         const [h, m, s] = delivery.split(':');
-        const hours = +h;
-        const minutes = +m;
-        const seconds = +s;
-        let cTime = currentDate.getTime();
-        const ms = 1000;
-        if (hours) {
-            currentDate = new Date(cTime + (hours * 60 * 60 * ms));
-            cTime = currentDate.getTime();
-        }
-        if (minutes) {
-            currentDate = new Date(cTime + (minutes * 60 * ms));
-            cTime = currentDate.getTime();
-        }
-        if (seconds) {
-            currentDate = new Date(cTime + (seconds * ms));
-        }
+        hoursToAdd += +h;
+        minutesToAdd += +m;
+        secondsToAdd += +s;
     });
-    const timeDifference = currentDate.getTime() - limitDate.getTime();
+    const cTime = currentDate.getTime();
+    let msToAdd = 0;
+    msToAdd += hoursToAdd * 60 * 60 * 1000;
+    msToAdd += minutesToAdd * 60 * 1000;
+    msToAdd += secondsToAdd * 1000;
+    const finalDate = new Date(cTime + msToAdd);
+    const timeDifference = finalDate.getTime() - limitDate.getTime();
     const s = Math.floor((timeDifference % (1000 * 60)) / 1000);
     let m = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
     let h = Math.floor(timeDifference / (1000 * 60 * 60));
