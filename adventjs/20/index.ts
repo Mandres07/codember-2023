@@ -1,43 +1,45 @@
 function distributeGifts(weights: number[][]) {
-    const response = [...weights];
-    for (let r = 0; r < weights.length; r++) {
-        const row = [...weights[r]];
-        for (let c = 0; c < row.length; c++) {
-            let sum = 0;
-            let count = 0;
-            if (row[c] !== null) {
-                sum += row[c];
+    const result = weights.map((currentRow, rIndex, columnArr) => {
+
+        const isDefined = (value: number[] | number): boolean => {
+            return value !== undefined && value !== null;
+        }
+
+        const row = currentRow.map((column, cIndex, rowArr) => {
+            let sum = 0, count = 0;
+            if (column !== null) {
+                sum += column;
                 count++;
             }
-            const previousRow = weights[r - 1];
-            const nextRow = weights[r + 1];
-            const previousColumn = weights[r][c - 1];
-            const nextColumn = weights[r][c + 1];
-            if (previousRow !== undefined) {
-                if (previousRow[c] !== undefined && previousRow[c] !== null) {
-                    sum += previousRow[c];
+            const previousRow = columnArr[rIndex - 1];
+            const nextRow = columnArr[rIndex + 1];
+            const previousColumn = rowArr[cIndex - 1]
+            const nextColumn = rowArr[cIndex + 1];
+            if (isDefined(previousRow)) {
+                if (isDefined(previousRow[cIndex])) {
+                    sum += previousRow[cIndex];
                     count++;
                 }
             }
-            if (nextRow !== undefined) {
-                if (nextRow[c] !== undefined && nextRow[c] !== null) {
-                    sum += nextRow[c];
+            if (isDefined(nextRow)) {
+                if (isDefined(nextRow[cIndex])) {
+                    sum += nextRow[cIndex];
                     count++;
                 }
             }
-            if(previousColumn != undefined && previousColumn !== null){
+            if (isDefined(previousColumn)) {
                 sum += previousColumn;
                 count++;
             }
-            if(nextColumn != undefined && nextColumn !== null){
+            if (isDefined(nextColumn)) {
                 sum += nextColumn;
                 count++;
             }
-            row[c] = Math.round(sum / count);
-        }
-        response[r] = row;
-    }
-    return response;
+            return Math.round(sum / count);
+        });
+        return row;
+    });
+    return result;
 }
 
 const input = [
