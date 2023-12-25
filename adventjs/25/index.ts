@@ -1,6 +1,6 @@
 function travelDistance(map: string) {
    const streets = map.split('\n');
-   console.log(streets);
+   let movements = 0;
 
    function getLocation(search: string) {
       const street = streets.findIndex(st => st.includes(search));
@@ -10,19 +10,16 @@ function travelDistance(map: string) {
       const house = streets[street].indexOf(search);
       return { street, house };
    }
-   let movements = 0;
+   
    const santaLocation = getLocation('S');
-   console.log('SANTA: ', santaLocation);
    for (let i = 1; i <= 9; i++) {
       const childLocation = getLocation(i.toString());
       if(childLocation === null){
          break;
       }
-      console.log('Child: ', i, childLocation);
       const y = santaLocation.street - childLocation.street;
       const x = santaLocation.house - childLocation.house;
       movements += Math.abs(y) + Math.abs(x);
-      console.log(movements);
       santaLocation.street = childLocation.street;
       santaLocation.house = childLocation.house;
    }
